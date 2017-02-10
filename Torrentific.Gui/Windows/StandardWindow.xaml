@@ -1,0 +1,31 @@
+﻿<controls:MetroWindow x:Class="Torrentific.Windows.StandardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:viewModel="clr-namespace:Torrentific.ViewModels" 
+        xmlns:views="clr-namespace:Torrentific.Views" 
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        Title="{Binding DisplayName}"
+        WindowStartupLocation="CenterScreen" MinWidth="1120" MinHeight="640" Icon="/Resources/Images/Icon.ico"                                            BorderThickness="1" 
+                      GlowBrush="Black"
+                      WindowTransitionsEnabled="False">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:AddNewTorrentViewModel}">
+            <views:AddNewTorrentView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:AboutViewModel}">
+            <views:AboutView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ManualDownloadViewModel}">
+            <views:ManualDownloadView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
+            <views:SettingsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:SearchViewModel}">
+            <views:SearchView />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ContentControl x:Name="ContentControl" Content="{Binding}" />
+    </Grid>
+</controls:MetroWindow>

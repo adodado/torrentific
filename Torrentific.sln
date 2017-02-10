@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torrentific.Core", "Torrentific.Core\Torrentific.Core.csproj", "{3893516D-5062-4406-972D-95F2EA7CF6BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torrentific.Gui", "Torrentific.Gui\Torrentific.Gui.csproj", "{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torrentific.Framework", "Torrentific.Framework\Torrentific.Framework.csproj", "{3E196658-A115-4FFB-9D76-7A599D8F5E03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Debug|x64.ActiveCfg = Debug|x64
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Debug|x64.Build.0 = Debug|x64
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Debug|x86.ActiveCfg = Debug|x86
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Debug|x86.Build.0 = Debug|x86
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Release|x64.ActiveCfg = Release|x64
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Release|x64.Build.0 = Release|x64
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Release|x86.ActiveCfg = Release|x86
+		{3893516D-5062-4406-972D-95F2EA7CF6BB}.Release|x86.Build.0 = Release|x86
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Debug|x64.ActiveCfg = Debug|x64
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Debug|x64.Build.0 = Debug|x64
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Debug|x86.ActiveCfg = Debug|x86
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Debug|x86.Build.0 = Debug|x86
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Release|x64.ActiveCfg = Release|x64
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Release|x64.Build.0 = Release|x64
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Release|x86.ActiveCfg = Release|x86
+		{A5D9CE3A-8A06-45FD-897F-36F3621FE15A}.Release|x86.Build.0 = Release|x86
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Debug|x64.ActiveCfg = Debug|x64
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Debug|x64.Build.0 = Debug|x64
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Debug|x86.ActiveCfg = Debug|x86
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Debug|x86.Build.0 = Debug|x86
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Release|x64.ActiveCfg = Release|x64
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Release|x64.Build.0 = Release|x64
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Release|x86.ActiveCfg = Release|x86
+		{3E196658-A115-4FFB-9D76-7A599D8F5E03}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

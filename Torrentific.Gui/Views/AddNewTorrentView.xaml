@@ -1,0 +1,65 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:viewModels="clr-namespace:Torrentific.ViewModels"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    x:Class="Torrentific.Views.AddNewTorrentView"
+    mc:Ignorable="d" Width="650" Height="355">
+    <Grid d:DataContext="{d:DesignInstance Type=viewModels:AddNewTorrentViewModel}">
+        <ListView x:Name="TorrentFilesList" Height="205" Margin="0,46,0,0" VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
+                  Width="650" ItemsSource="{Binding Torrent.TorrentFiles}" BorderThickness="0,1,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="30">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Width="454" Header="Name" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Size}" Width="80" Header="Size" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Label VerticalAlignment="Top" Margin="40,10,0,0" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold"
+               Content="Select files to download" />
+        <Grid Background="#FFECECEC" Height="74" VerticalAlignment="Bottom">
+            <Button x:Name="Cancel" Content="Cancel" Margin="510,20,0,0" Height="34" VerticalAlignment="Top"
+                    HorizontalAlignment="Left" Width="100" IsCancel="True" />
+            <Button x:Name="Ok" Content="OK" Margin="405,20,0,0" IsDefault="True" HorizontalAlignment="Left"
+                    Width="100" Height="34" VerticalAlignment="Top">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="AddTorrentToSession" TargetObject="{Binding}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </Grid>
+        <controls:ProgressRing x:Name="ProgressRing" Width="70" Height="70" Foreground="#FF00BB7D"
+                               Margin="275,95,275,149" IsActive="{Binding IsWorking}" />
+        <Button x:Name="SelectNone" Content="Select none" Margin="0,256,10,0"
+                Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:CallMethodAction MethodName="SelectNone" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <Button x:Name="SelectAll" Content="Select all" HorizontalAlignment="Left" Margin="485,256,0,0"
+                VerticalAlignment="Top" Width="75">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:CallMethodAction MethodName="SelectAll" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <TextBlock x:Name="InfoText" Text="{Binding InfoText}" FontSize="14" FontFamily="Segoe UI Semibold"
+                   Margin="80,196,80,0" TextAlignment="Center" Height="26" VerticalAlignment="Top" />
+    </Grid>
+</UserControl>

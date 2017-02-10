@@ -1,0 +1,253 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:viewModels="clr-namespace:Torrentific.ViewModels" 
+    xmlns:controls="clr-namespace:Torrentific.Controls" 
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    x:Class="Torrentific.Views.MainView"
+    mc:Ignorable="d" MinHeight="370">
+    <Grid Background="White" d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="11*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="20,20,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left"
+              Width="251.8">
+            <Button x:Name="AddTorrentFile" HorizontalAlignment="Left" Content="{iconPacks:PackIconMaterial Plus}" Style="{DynamicResource MetroCircleButtonStyle}" 
+                    VerticalAlignment="Top" Width="40" Height="40" BorderBrush="Red" Foreground="Red">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="AddTorrentFile" TargetObject="{Binding}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button x:Name="RemoveTorrentWithData" Margin="205,0,0,0"
+                    Content="{iconPacks:PackIconMaterial Delete}" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Top" Height="40"
+                    Command="{Binding RemoveTorrentWithDataCommand}" HorizontalAlignment="Left" Width="40" BorderBrush="Red" Foreground="Red" />
+            <Button x:Name="StartTorrent" Margin="85,0,0,0" Content="{iconPacks:PackIconMaterial Play}" Style="{DynamicResource MetroCircleButtonStyle}" Width="40" HorizontalAlignment="Left"
+                    Command="{Binding StartCommand, UpdateSourceTrigger=PropertyChanged}" Foreground="Red" BorderBrush="Red" />
+            <Button x:Name="StopTorrent" Margin="120,0,0,0" Content="{iconPacks:PackIconMaterial Stop}" Style="{DynamicResource MetroCircleButtonStyle}" Height="40"
+                    VerticalAlignment="Top" HorizontalAlignment="Left" Width="40"
+                    Command="{Binding StopCommand, UpdateSourceTrigger=PropertyChanged}" Foreground="Red" BorderBrush="Red" />
+            <Button x:Name="AddTorrentFromUri" HorizontalAlignment="Left" Height="40"  Foreground="Red" BorderBrush="Red" 
+                    Margin="35,0,0,0" Content="{iconPacks:PackIconMaterial Magnet}" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Top" Width="40">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction MethodName="AddTorrentFromUri" TargetObject="{Binding}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button x:Name="RemoveTorrent" HorizontalAlignment="Left" Height="40" Margin="170,0,0,0"
+                   Content="{iconPacks:PackIconMaterial Minus}" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Top" Width="40"
+                    Command="{Binding RemoveTorrentCommand}" BorderBrush="Red" Foreground="Red" />
+
+        </Grid>
+        <controls:CustomDataGrid Grid.Row="1" x:Name="Torrents" ItemsSource="{Binding Torrents}"
+                                 AutoGenerateColumns="False"
+                                 Background="{x:Null}" GridLinesVisibility="Vertical"
+                                 VerticalGridLinesBrush="#FFE5E5E5"
+                                 AlternationCount="2" AlternatingRowBackground="#FFF5FCFD"
+                                 SelectedItem="{Binding SelectedTorrent}"
+                                 BorderThickness="0,1"
+                                 IsReadOnly="True" TextOptions.TextFormattingMode="Display"
+                                 SelectedItemsList="{Binding SelectedTorrents, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 IsSynchronizedWithCurrentItem="True"
+                                 MouseLeftButtonDown="Torrents_MouseLeftButtonDown" MinHeight="200"  Style="{StaticResource AzureDataGrid}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <ei:CallMethodAction MethodName="TorrentsGridDoubleClicked" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <controls:CustomDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Open containing folder"
+                              Command="{Binding OpenContainingFolderCommand}" />
+                    <MenuItem x:Name="MnuRemoveTorrent" Header="Remove" Command="{Binding RemoveTorrentCommand}" />
+                    <MenuItem x:Name="MnuRemoveTorrentWithData" Header="Remove with data"
+                              Command="{Binding RemoveTorrentWithDataCommand}" />
+                    <MenuItem Header="Priority">
+                        <MenuItem Header="Low" Command="{Binding SetTorrentPriorityCommand, Mode=OneWay}"
+                                  CommandParameter="Low" />
+                        <MenuItem Header="Normal" Command="{Binding SetTorrentPriorityCommand, Mode=OneWay}"
+                                  CommandParameter="Normal" />
+                        <MenuItem Header="High" Command="{Binding SetTorrentPriorityCommand, Mode=OneWay}"
+                                  CommandParameter="High" />
+                    </MenuItem>
+                </ContextMenu>
+            </controls:CustomDataGrid.ContextMenu>
+            <controls:CustomDataGrid.Columns>
+                <DataGridTextColumn x:Name="TorrentName" Binding="{Binding Name}" Header="Name" MaxWidth="550"
+                                    MinWidth="380" Width="Auto" />
+                <DataGridTextColumn x:Name="TorrentDownSpeed" Binding="{Binding DownSpeed}" Header="Down speed"
+                                    MinWidth="100" />
+                <DataGridTextColumn x:Name="TorrentUpSpeed" Binding="{Binding UpSpeed}" Header="Up speed"
+                                    MinWidth="100" />
+                <DataGridTextColumn x:Name="TorrentSize" Binding="{Binding Size}" Header="Size" MinWidth="80" />
+                <DataGridTemplateColumn x:Name="TorrentStatus" Header="Status" MinWidth="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" BorderThickness="0"
+                                             Foreground="#FF24DA45" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding State}" Foreground="Black" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="TorrentEta" Binding="{Binding Eta}" Header="ETA" MinWidth="200" />
+                <DataGridTextColumn x:Name="TorrentDateAdded" Binding="{Binding DateAdded}" Header="Date added"
+                                    MinWidth="100" />
+            </controls:CustomDataGrid.Columns>
+            <controls:CustomDataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Padding" Value="3" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                    <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </controls:CustomDataGrid.CellStyle>
+        </controls:CustomDataGrid>
+        <Grid x:Name="TabControlGrid" Background="#FFF0F0F0" Grid.Row="2">
+            <TabControl Margin="10" MinHeight="200" HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch">
+                <TabItem x:Name="Files" Header="Files">
+                    <Grid>
+                        <DataGrid Grid.Row="0" x:Name="TorrentFiles"
+                                  ItemsSource="{Binding SelectedTorrent.TorrentFiles}" AutoGenerateColumns="False"
+                                  Style="{StaticResource AzureDataGrid}"
+                                  Background="{x:Null}" GridLinesVisibility="Vertical"
+                                  VerticalGridLinesBrush="#FFE5E5E5"
+                                  AlternationCount="2" AlternatingRowBackground="#FFF5FCFD"
+                                  SelectedItem="{Binding SelectedFileEntity}"
+                                  IsReadOnly="True" TextOptions.TextFormattingMode="Display"
+                                  BorderThickness="0">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem x:Name="OpenFile" Header="Open file"
+                                              Command="{Binding OpenFileCommand, Mode=OneWay}" />
+                                    <MenuItem x:Name="OpenContainingFolder" Header="Open containing folder"
+                                              Command="{Binding OpenContainingFolderCommand, Mode=OneWay}" />
+                                    <MenuItem Header="Priority">
+                                        <MenuItem Header="Low" Command="{Binding SetPriorityCommand, Mode=OneWay}"
+                                                  CommandParameter="Low" />
+                                        <MenuItem Header="Normal" Command="{Binding SetPriorityCommand, Mode=OneWay}"
+                                                  CommandParameter="Normal" />
+                                        <MenuItem Header="High" Command="{Binding SetPriorityCommand, Mode=OneWay}"
+                                                  CommandParameter="High" />
+                                    </MenuItem>
+                                    <MenuItem Header="Don't download"
+                                              Command="{Binding SetPriorityCommand, Mode=OneWay}"
+                                              CommandParameter="Skip" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn x:Name="FileName" Binding="{Binding Name}" Header="Name"
+                                                    MinWidth="370" />
+                                <DataGridTextColumn x:Name="FileSize" Binding="{Binding Size}" Header="Size"
+                                                    Width="100" />
+                                <DataGridTemplateColumn x:Name="FileStatus" Header="Status" Width="150">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100"
+                                                             BorderThickness="0" Foreground="#FF24DA45" />
+                                                <TextBlock HorizontalAlignment="Center" Text="{Binding ProgressText}"
+                                                           Foreground="Black" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn x:Name="FilePriority" Binding="{Binding PriorityText}"
+                                                    Header="Priority" Width="180" />
+                            </DataGrid.Columns>
+                            <DataGrid.CellStyle>
+                                <Style TargetType="{x:Type DataGridCell}">
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="Padding" Value="3" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                                <Border Padding="{TemplateBinding Padding}"
+                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                                        Background="{TemplateBinding Background}"
+                                                        SnapsToDevicePixels="True">
+                                                    <ContentPresenter
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.CellStyle>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="Info" Header="Info">
+                    <Grid>
+                        <Label Content="Date added" VerticalAlignment="Top" HorizontalAlignment="Left"
+                               Margin="10,10,0,0" FontWeight="Bold" />
+                        <TextBlock x:Name="DateAdded" TextWrapping="Wrap" HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="200,15,0,0" Text="{Binding SelectedTorrent.DateAdded}" />
+                        <Label Content="Save in" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,36,0,0"
+                               FontWeight="Bold" />
+                        <TextBlock x:Name="SaveIn" TextWrapping="NoWrap"
+                                   Text="{Binding SelectedTorrent.SavePath}" VerticalAlignment="Top"
+                                   Margin="200,41,10,0" TextTrimming="CharacterEllipsis" />
+                        <Label Content="Seeds" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,62,0,0"
+                               FontWeight="Bold" />
+                        <TextBlock x:Name="Seeds" TextWrapping="Wrap" Text="{Binding SelectedTorrent.Seeds}"
+                                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,67,0,0" />
+                        <Label Content="Peers" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,88,0,-2"
+                               FontWeight="Bold" />
+                        <TextBlock x:Name="Peers" TextWrapping="Wrap" Text="{Binding SelectedTorrent.Peers}"
+                                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,93,0,0" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <ToggleButton x:Name="ToggleSpeedLimitMode" Grid.Row="0" Height="40" Margin="0,20,55,0"
+                     Content="{iconPacks:PackIconMaterial Speedometer}" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Top"
+                      HorizontalAlignment="Right" Width="40" ToolTip="Activate / Deactivate speed limit mode"
+                      IsChecked="{Binding IsTurtleModeActive}" BorderBrush="Red" Foreground="Red">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:CallMethodAction MethodName="ToggleTurtleMode" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ToggleButton>
+        <Button x:Name="OpenOptions" Grid.Row="0" HorizontalAlignment="Right" Height="40" Margin="0,20,20,0"
+                Content="{iconPacks:PackIconMaterial Settings}" Style="{DynamicResource MetroCircleButtonStyle}"  VerticalAlignment="Top" Width="40" BorderBrush="#FFFF0606" Foreground="#FFFF0F0F">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:CallMethodAction MethodName="OpenOptions" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <Button Grid.Row="0" x:Name="OpenSearchView" Height="40" Margin="0,20,90,0"
+               Content="{iconPacks:PackIconMaterial Magnify}" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Width="40" BorderBrush="Red" Foreground="Red">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:CallMethodAction MethodName="OpenSearchView" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+    </Grid>
+</UserControl>

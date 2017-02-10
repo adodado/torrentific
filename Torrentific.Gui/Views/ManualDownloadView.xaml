@@ -1,0 +1,33 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+    xmlns:viewModels="clr-namespace:Torrentific.ViewModels"
+    x:Class="Torrentific.Views.ManualDownloadView"
+    mc:Ignorable="d"
+    Width="600" Height="275">
+    <Grid d:DataContext="{d:DesignInstance Type=viewModels:ManualDownloadViewModel}">
+        <Label VerticalAlignment="Top" Margin="40,10,0,0" HorizontalAlignment="Left" FontSize="16" FontWeight="Bold"
+               Content="Enter magnet link URI" />
+        <TextBox x:Name="SearchText"
+                 Text="{Binding MagnetLinkText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                 Margin="40,46,40,0" TextWrapping="Wrap" Height="120" VerticalAlignment="Top" Width="520" />
+        <Grid Background="#FFECECEC" Height="74" VerticalAlignment="Bottom">
+            <Button x:Name="Cancel" Content="Cancel" Margin="0,20,40,0" Height="34" VerticalAlignment="Top"
+                    HorizontalAlignment="Right" Width="100" IsCancel="True" />
+            <Button x:Name="Ok" Content="OK" Margin="345,20,0,0" HorizontalAlignment="Left"
+                    Width="100" Height="34" VerticalAlignment="Top" Command="{Binding OkCommand, Mode=OneWay}" />
+        </Grid>
+        <Button x:Name="Paste" Content="Paste" HorizontalAlignment="Left" Margin="40,171,0,0" Width="75" Height="20"
+                VerticalAlignment="Top">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <ei:CallMethodAction MethodName="PasteText" TargetObject="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+    </Grid>
+</UserControl>
